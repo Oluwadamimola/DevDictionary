@@ -10,7 +10,15 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpClient<IDictionaryService, DictionaryService>();
 builder.Services.AddHttpClient<ITelexService, TelexService>();
 
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowTelex", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
 
 
 var app = builder.Build();
@@ -22,8 +30,23 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("AllowTelex");
+
+
 app.UseHttpsRedirection();
 
 app.MapControllers();
+
+app.MapGet("/", () => new
+{
+    service = "DevDictionary Bot",
+    status = "running",
+    endpoints = new
+    {
+        webhook = "/telex/webhook",
+        health = "/telex/health"
+    },
+    description = "AI-powered developer dictionary bot for Telex.im"
+});
 
 app.Run();

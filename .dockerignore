@@ -1,0 +1,43 @@
+# Build artifacts
+bin/
+obj/
+out/
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.user
+*.suo
+*.userprefs
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Documentation
+*.md
+README.md
+BLOG.md
+LICENSE
+
+# Environment files
+.env
+.env.local
+appsettings.Development.json
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Docker files (don't need these inside the image)
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# GitHub
+.github/
